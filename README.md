@@ -4,8 +4,10 @@
 ### - Модуль classes (описание классов)
 - класс *Product(name, description, price, quantity)* - класс со свойствами: название, описание, цена и  
 количество в наличии.
+Альтернативный способ инициализации: new_product = Product.new_product({"name": "...", "description": "...", "price": ..., "quantity": })
 - класс *Category(name, description, products)* - класс со свойствами: название, описание и список товаров  
 категории. Имеет 2 атрибута класса: category_count - количество категорий и product_count - количество товаров.
+Добавить товар - метод add_product(product)
 
 
 ## Зависимости и конфигурация
@@ -38,5 +40,5 @@ typing_extensions==4.12.2
 
 ## Тестирование
 - Модуль тестирования: pytest== 8.3.3  
-- Количество тестов: 2
-- Code coverage: 98%
+- Количество тестов: 6
+- Code coverage: 96%

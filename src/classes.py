@@ -9,7 +9,7 @@ class Product:
     __price: float
     quantity: int
 
-    def __init__(self, name: str, description: str, price: float, quantity: int):
+    def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
         self.__price = price
@@ -27,6 +27,10 @@ class Product:
     def price(self, new_price):
         if new_price <= 0:
             print('Цена не должна быть нулевая или отрицательная')
+        elif new_price < self.__price:
+            answer = input(f'Цена понижается с {self.__price} по {new_price}. Подтвержаете? (y/n)')
+            if answer == 'y':
+                self.__price = new_price
         else:
             self.__price = new_price
 
@@ -60,3 +64,6 @@ class Category:
             result += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
         return result
 
+    @property
+    def products_list(self):
+        return self.__products

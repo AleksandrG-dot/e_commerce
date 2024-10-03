@@ -5,7 +5,7 @@ from src.classes import Category, Product
 
 @pytest.fixture
 def first_product():
-    return Product("Aceline S201AMG", "Холодильник компактный белый", 10999.00, 3)
+    return Product("Kitfort КТ-4104", "Холодильник косметический зеленый", 3699.00, 6)
 
 
 @pytest.fixture
@@ -35,4 +35,16 @@ def second_category():
                 1,
             ),
         ],
+    )
+
+
+@pytest.fixture
+def product_new_product():
+    return Product.new_product(
+        {
+            "name": "JBL Bar 9.1 черный",
+            "description": "Саундбар, 5.1.4, 820 Вт, 3D, Bluetooth, Wi-Fi, HDMI, HDMI, USB",
+            "price": 99999.0,
+            "quantity": 1,
+        }
     )
