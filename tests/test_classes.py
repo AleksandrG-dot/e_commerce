@@ -1,3 +1,6 @@
+from unittest.mock import patch
+
+
 # Тест класса Product
 def test_product(first_product):
     assert first_product.name == "Kitfort КТ-4104"
@@ -50,12 +53,14 @@ def test_product_price_setter(capsys, product_new_product):
     assert message.out.strip() == "Цена не должна быть нулевая или отрицательная"
     assert product_new_product.price == 120000
 
-    # # Изменяем цену на меньшую чем была (требуется подтверждение)
-    # product_new_product.price = 1000
-    # message = capsys.readouterr()
-    # assert message.out.strip() == 'Цена понижается с 120000 по 1000. Подтвержаете? (y/n)'
-    # # Не знаю как передать в консоль 'y' или 'n'
-    # assert product_new_product.price == 120000
+    # Тестирование сеттера цены price класса Product
+
+
+@patch("src.classes.input", return_value="y")
+def test_product_price_setter_2(capsys, product_new_product):
+    # Изменяем цену на меньшую чем была (требуется подтверждение)
+    product_new_product.price = 10000
+    assert product_new_product.price == 10000
 
 
 # Тестирование строки с товарами класса Category

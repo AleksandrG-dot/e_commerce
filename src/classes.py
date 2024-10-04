@@ -26,10 +26,10 @@ class Product:
     @price.setter
     def price(self, new_price):
         if new_price <= 0:
-            print('Цена не должна быть нулевая или отрицательная')
+            print("Цена не должна быть нулевая или отрицательная")
         elif new_price < self.__price:
-            answer = input(f'Цена понижается с {self.__price} по {new_price}. Подтвержаете? (y/n)')
-            if answer == 'y':
+            answer = input(f"Цена понижается с {self.__price} по {new_price}. Подтвержаете? (y/n)")
+            if answer == "y":
                 self.__price = new_price
         else:
             self.__price = new_price
