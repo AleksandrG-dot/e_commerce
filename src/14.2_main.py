@@ -1,3 +1,5 @@
+""" Для контроля работы ДЗ 14.2 : Режимы доступа """
+
 from src.classes import Category, Product
 
 if __name__ == "__main__":
