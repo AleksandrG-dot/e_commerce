@@ -1,5 +1,7 @@
 from unittest.mock import patch
 
+import pytest
+
 
 # Тест класса Product
 def test_product(first_product):
@@ -53,9 +55,9 @@ def test_product_price_setter(capsys, product_new_product):
     assert message.out.strip() == "Цена не должна быть нулевая или отрицательная"
     assert product_new_product.price == 120000
 
-    # Тестирование сеттера цены price класса Product
 
-
+# Тестирование сеттера цены price класса Product.
+# Изменяем цену на меньшую, т.е. требуется подтверждение от пользователя
 @patch("src.classes.input", return_value="y")
 def test_product_price_setter_2(capsys, product_new_product):
     # Изменяем цену на меньшую чем была (требуется подтверждение)
@@ -79,3 +81,29 @@ def test_category_add_product(first_category, first_product):
     assert len(first_category.products_list) == 3
     count_after = first_category.product_count
     assert count_after - count_before == 1
+
+
+# Тестирование строкового представления класса Product (маг. метод __str__)
+def test_product_str(first_product):
+    assert str(first_product) == "Kitfort КТ-4104, 3699.0 руб. Остаток: 6 шт."
+
+
+# Тестирование сложения проуктов класса Product (маг. метод __add__)
+def test_product_add(first_product, product_new_product):
+    assert first_product + product_new_product == (3699 * 6 + 99999 * 1)
+
+
+# Тестирование строкового представления класса Category (маг. метод __str__)
+def test_category_str(first_category):
+    assert str(first_category) == "Холодильники, количество продуктов: 5 шт."
+
+
+# Тестирование класса-итератора класса Category
+def test_category_iterator(category_iterator):
+    iter(category_iterator)
+    assert category_iterator.index == 0
+    assert next(category_iterator).name == "Aceline S201AMG"
+    assert next(category_iterator).name == "Indesit ITS 4180 W"
+
+    with pytest.raises(StopIteration):
+        next(category_iterator)
