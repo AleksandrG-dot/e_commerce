@@ -19,7 +19,9 @@ class Product:
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
     def __add__(self, other):
-        return self.__price * self.quantity + other.__price * other.quantity
+        if type(self) is type(other):
+            return self.__price * self.quantity + other.__price * other.quantity
+        raise TypeError
 
     @classmethod
     def new_product(cls, product_dict):
@@ -60,8 +62,11 @@ class Category:
         Category.product_count += len(products)
 
     def add_product(self, product: Product):
-        self.__products.append(product)
-        Category.product_count += 1
+        if isinstance(product, Product):
+            self.__products.append(product)
+            Category.product_count += 1
+        else:
+            raise TypeError
 
     @property
     def products(self):
@@ -103,3 +108,31 @@ class CategoryIterator:
             return product
         else:
             raise StopIteration
+
+
+class Smartphone(Product):
+    """ Класс, содержащий смартфоны """
+    efficiency: float   # производительность
+    model: str          # модель
+    memory: int         # объем встроенной памяти
+    color: str          # цвет
+
+    def __init__(self, name, description, price, quantity, efficiency, model, memory, color):
+        super().__init__(name, description, price, quantity)
+        self.efficiency = efficiency
+        self.model = model
+        self.memory = memory
+        self.color = color
+
+
+class LawnGrass(Product):
+    """ Класс, содержащий траву газонную """
+    country: str                # страна-производитель
+    germination_period: str     # срок прорастания
+    color: str                  # цвет
+
+    def __init__(self, name, description, price, quantity, country, germination_period, color):
+        super().__init__(name, description, price, quantity)
+        self.country = country
+        self.germination_period = germination_period
+        self.color = color
