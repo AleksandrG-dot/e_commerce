@@ -111,11 +111,12 @@ class CategoryIterator:
 
 
 class Smartphone(Product):
-    """ Класс, содержащий смартфоны """
-    efficiency: float   # производительность
-    model: str          # модель
-    memory: int         # объем встроенной памяти
-    color: str          # цвет
+    """Класс, содержащий смартфоны"""
+
+    efficiency: float  # производительность
+    model: str  # модель
+    memory: int  # объем встроенной памяти
+    color: str  # цвет
 
     def __init__(self, name, description, price, quantity, efficiency, model, memory, color):
         super().__init__(name, description, price, quantity)
@@ -126,10 +127,11 @@ class Smartphone(Product):
 
 
 class LawnGrass(Product):
-    """ Класс, содержащий траву газонную """
-    country: str                # страна-производитель
-    germination_period: str     # срок прорастания
-    color: str                  # цвет
+    """Класс, содержащий траву газонную"""
+
+    country: str  # страна-производитель
+    germination_period: str  # срок прорастания
+    color: str  # цвет
 
     def __init__(self, name, description, price, quantity, country, germination_period, color):
         super().__init__(name, description, price, quantity)
