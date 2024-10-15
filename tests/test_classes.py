@@ -107,3 +107,58 @@ def test_category_iterator(category_iterator):
 
     with pytest.raises(StopIteration):
         next(category_iterator)
+
+
+# Тестирование создания объекта класса-наследника Smartphone
+def test_smartphone_init(smartphone1):
+    assert smartphone1.name == "Samsung Galaxy S23 Ultra"
+    assert smartphone1.description == "256GB, Серый цвет, 200MP камера"
+    assert smartphone1.price == 180000.0
+    assert smartphone1.quantity == 5
+    assert smartphone1.efficiency == 95.5
+    assert smartphone1.model == "S23 Ultra"
+    assert smartphone1.memory == 256
+    assert smartphone1.color == "Серый"
+
+
+# Тестирования функции сложения продуктов класса Smartphone
+def test_smartphone_add(smartphone1, smartphone2):
+    assert smartphone1 + smartphone2 == 2580000
+
+
+# Тестирования функции сложения продуктов класса Smartphone - с ошибкой
+def test_smartphone_add_error(smartphone1, LawnGrass1):
+    with pytest.raises(TypeError):
+        result = smartphone1 + 1
+    with pytest.raises(TypeError):
+        result = smartphone1 + LawnGrass1
+
+
+# Тестирование создания объекта класса-наследника LawnGrass
+def test_LawnGrass_init(LawnGrass1):
+    assert LawnGrass1.name == "Газонная трава"
+    assert LawnGrass1.description == "Элитная трава для газона"
+    assert LawnGrass1.price == 500.0
+    assert LawnGrass1.quantity == 20
+    assert LawnGrass1.country == "Россия"
+    assert LawnGrass1.germination_period == "7 дней"
+    assert LawnGrass1.color == "Зеленый"
+
+
+# Тестирования функции сложения продуктов класса LawnGrass
+def test_LawnGrass_add(LawnGrass1, LawnGrass2):
+    assert LawnGrass1 + LawnGrass2 == 16750
+
+
+# Тестирования функции сложения продуктов класса LawnGrass - с ошибкой
+def test_LawnGrass1_add_error(smartphone1, LawnGrass1):
+    with pytest.raises(TypeError):
+        result = LawnGrass1 + 1
+    with pytest.raises(TypeError):
+        result = LawnGrass1 + smartphone1
+
+
+# Тестирование добавления в категорию не продукта - ошибка TypeError
+def test_category_add_product_error(first_category):
+    with pytest.raises(TypeError):
+        first_category.add_product("Any text or data")
