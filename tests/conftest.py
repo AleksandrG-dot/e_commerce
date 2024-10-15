@@ -1,6 +1,6 @@
 import pytest
 
-from src.classes import Category, Product
+from src.classes import Category, CategoryIterator, Product
 
 
 @pytest.fixture
@@ -48,3 +48,8 @@ def product_new_product():
             "quantity": 1,
         }
     )
+
+
+@pytest.fixture
+def category_iterator(first_category):
+    return CategoryIterator(first_category)

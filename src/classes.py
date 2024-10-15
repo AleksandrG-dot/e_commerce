@@ -15,6 +15,12 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+    def __str__(self):
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        return self.__price * self.quantity + other.__price * other.quantity
+
     @classmethod
     def new_product(cls, product_dict):
         return cls(**product_dict)
@@ -61,9 +67,39 @@ class Category:
     def products(self):
         result = ""
         for product in self.__products:
-            result += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+            result += str(product) + "\n"
+            # result += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n" # Первонач. решение
         return result
 
     @property
     def products_list(self):
         return self.__products
+
+    def __str__(self):
+        count = 0
+        for product in self.__products:
+            count += product.quantity
+        return f"{self.name}, количество продуктов: {count} шт."
+
+
+class CategoryIterator:
+    """Класс для итерации товаров в классе Category"""
+
+    ctg: Category
+    index: int
+
+    def __init__(self, ctg_obj):
+        self.ctg = ctg_obj
+        self.index = 0
+
+    def __iter__(self):
+        self.index = 0
+        return self
+
+    def __next__(self):
+        if self.index < len(self.ctg.products_list):
+            product = self.ctg.products_list[self.index]
+            self.index += 1
+            return product
+        else:
+            raise StopIteration

@@ -8,6 +8,12 @@
 - класс *Category(name, description, products)* - класс со свойствами: название, описание и список товаров  
 категории. Имеет 2 атрибута класса: category_count - количество категорий и product_count - количество товаров.
 Добавить товар - метод add_product(product)
+- класс *CategoryIterator* - класс для итерации товаров в классе Category. Пример использования:   
+ `iterator = CategoryIterator(category1)` 
+
+    `for product in iterator:`
+
+     `print(product)`
 
 
 ## Зависимости и конфигурация
@@ -40,5 +46,5 @@ typing_extensions==4.12.2
 
 ## Тестирование
 - Модуль тестирования: pytest== 8.3.3  
-- Количество тестов: 7
+- Количество тестов: 11
 - Code coverage: 99%
