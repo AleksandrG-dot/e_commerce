@@ -2,6 +2,8 @@ from unittest.mock import patch
 
 import pytest
 
+from src.classes import LawnGrass, Product, Smartphone
+
 
 # Тест класса Product
 def test_product(first_product):
@@ -46,7 +48,9 @@ def test_product_price_setter(capsys, product_new_product):
     # Изменяем цену на отрицательную (т.е. ошибка)
     product_new_product.price = -1000
     message = capsys.readouterr()
-    assert message.out.strip() == "Цена не должна быть нулевая или отрицательная"
+    assert (
+        message.out.strip().split("\n")[-1] == "Цена не должна быть нулевая или отрицательная"
+    )  # т.к. класс-миксин PrintMixin выводин 1 доп. строку
     assert product_new_product.price == 120000
 
     # Изменяем цену на 0 (т.е. ошибка)
@@ -162,3 +166,18 @@ def test_LawnGrass1_add_error(smartphone1, LawnGrass1):
 def test_category_add_product_error(first_category):
     with pytest.raises(TypeError):
         first_category.add_product("Any text or data")
+
+
+# Тестирование класс-миксина PrintMixin (выводит в консоль инфу о создаваемом экземпляре)
+def test_printmixin(capsys):
+    Product("Kitfort КТ-4104", "Холодильник косметический зеленый", 3699.00, 6)
+    message = capsys.readouterr()
+    assert message.out.strip() == "Product(Kitfort КТ-4104, Холодильник косметический зеленый, 3699.0, 6)"
+
+    Smartphone("Iphone 15", "512GB, Gray space", 210000.0, 8, 98.2, "15", 512, "Gray space")
+    message = capsys.readouterr()
+    assert message.out.strip() == "Smartphone(Iphone 15, 512GB, Gray space, 210000.0, 8)"
+
+    LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
+    message = capsys.readouterr()
+    assert message.out.strip() == "LawnGrass(Газонная трава, Элитная трава для газона, 500.0, 20)"
