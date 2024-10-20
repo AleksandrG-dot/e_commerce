@@ -1,7 +1,36 @@
 """ Модуль с описанием классов, используемых в проекте """
 
+from abc import ABC, abstractmethod
 
-class Product:
+
+class PrintMixin:
+    """Класс-миксин, выводящий в консоль информацию об объекте в формате <Класс>(<Параметры>, ...)"""
+
+    def __init__(self):
+        print(repr(self))
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
+
+
+class BaseProduct(ABC):
+    """Базовый абстрактный класс для продуктов"""
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+    @abstractmethod
+    def __add__(self, other):
+        pass
+
+    @classmethod
+    @abstractmethod
+    def new_product(cls, *args, **kwargs):
+        pass
+
+
+class Product(BaseProduct, PrintMixin):
     """Класс для представления продукции"""
 
     name: str
@@ -14,6 +43,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()  # вызывает __init__ класса PrintMixin
 
     def __str__(self):
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
