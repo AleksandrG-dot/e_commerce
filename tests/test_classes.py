@@ -181,3 +181,15 @@ def test_printmixin(capsys):
     LawnGrass("Газонная трава", "Элитная трава для газона", 500.0, 20, "Россия", "7 дней", "Зеленый")
     message = capsys.readouterr()
     assert message.out.strip() == "LawnGrass(Газонная трава, Элитная трава для газона, 500.0, 20)"
+
+
+# Тестирование попытки создания товара с нулевым количеством
+def test_product_zero_quantiti():
+    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
+        Product("Бракованный товар", "Неверное количество", 1000.0, 0)
+
+
+# Тестирование метода подсчета средней стоимости товаров в категории middle_price
+def test_category_middle_price(second_category, category_without_product):
+    assert second_category.middle_price() == 10999.33
+    assert category_without_product.middle_price() == 0

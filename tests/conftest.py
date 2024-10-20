@@ -39,6 +39,13 @@ def second_category():
 
 
 @pytest.fixture
+def category_without_product():
+    return Category(
+        name="Пустая категория", description="Категория для тестирования подсчета средней стоимости продуктов"
+    )
+
+
+@pytest.fixture
 def product_new_product():
     return Product.new_product(
         {
